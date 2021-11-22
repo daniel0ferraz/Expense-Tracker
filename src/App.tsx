@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./index.css";
 import * as C from "./App_Styles";
 import { Item } from "./types/Item";
 import { Category } from "./types/Category";
