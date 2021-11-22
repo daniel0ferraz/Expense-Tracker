@@ -6,15 +6,23 @@ import { Category } from "./types/Category";
 import { categories } from "./data/categories";
 import { items } from "./data/items";
 import { getCurrentMonth, filterListByMonth } from "./helpers/dateFilter";
+import { TableArea } from "./components/TableArea";
+import { InfoArea } from "./components/InfoArea";
 
 export default function App() {
 	const [list, setList] = useState(items);
-  const [filteredList, setFilteredList] = useState<Item[]>([])
+	const [filteredList, setFilteredList] = useState<Item[]>([]);
 	const [currentMounth, setCurrentMount] = useState(getCurrentMonth());
+	const [income, setIncome] = useState(0);
+	const [expense, setExpense] = useState(0);
 
-  useEffect(() => {
-    setFilteredList(filterListByMonth(list, currentMounth))
-  }, [list, currentMounth])
+	useEffect(() => {
+		setFilteredList(filterListByMonth(list, currentMounth));
+	}, [list, currentMounth]);
+
+	const handleMonthChange = (newMonth: string) => {
+		setCurrentMount(newMonth);
+	};
 
 	return (
 		<>
@@ -24,11 +32,16 @@ export default function App() {
 				</C.Header>
 
 				<C.Body>
-					{/*Area de informações */}
+					<InfoArea
+						currentMounth={currentMounth}
+						onMonthChange={handleMonthChange}
+						income={income}
+						expense={expense}
+					/>
 
 					{/*Area de inserção */}
 
-					{/*Area de itens */}
+					<TableArea list={filteredList} />
 				</C.Body>
 			</C.Container>
 		</>
